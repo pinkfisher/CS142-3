@@ -1,4 +1,3 @@
-
 function Cs142TemplateProcessor(template) {
   this.org_str = template;
   this.fillIn = function(dict) {
@@ -10,4 +9,3 @@ function Cs142TemplateProcessor(template) {
     return new_str;
   };
 }
-

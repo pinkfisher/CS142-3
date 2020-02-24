@@ -1,7 +1,7 @@
 function cs142MakeMultiFilter(originalArray) {
   var currentArray = originalArray;
   return function arrayFilterer(filterCriteria, callback) {
-    let tmp = new Array();
+    let tmp = [];
     if (filterCriteria === undefined) {
       return currentArray;
     }
