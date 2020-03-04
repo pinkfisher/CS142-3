@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /*
  * Load the model data of the problem 1 of cs142's project4.
@@ -11,12 +11,12 @@
 var cs142models;
 
 if (cs142models === undefined) {
-   cs142models = {};
+  cs142models = {};
 }
 
 cs142models.exampleModel = function() {
-   return {
-      name: 'Unknown Name'
-   };
+  return {
+    name: "Lê Thanh Bình",
+    motto: "<3 Lam <3 Trang <3 bạn receptionist ở KMS :)"
+  };
 };
-
