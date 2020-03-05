@@ -1,0 +1,10 @@
+.bar {
+  display: flex;
+  background-color: aqua;
+  justify-content: space-between;
+  align-items: stretch;
+}
+.barButton {
+  background-color: red;
+  font-size: 1.5em;
+}

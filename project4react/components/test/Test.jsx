@@ -20,11 +20,11 @@ class Test extends React.Component {
     this.setState({person: newName});
   }
 
-  handleButtonClick(event) {
+  handleButtonClick() {
     this.setState({buttonClicks: this.state.buttonClicks+1})
   }
 
-  render(props) {
+  render() {
     return (
       <div>
         <label htmlFor="inId">Name:</label>
@@ -36,7 +36,7 @@ class Test extends React.Component {
         <ol>
           {
             this.favColors.map((c) => <li key={c.name}>
-              <span>{c.name}'s favorite color is {c.color}</span>
+              <span>{c.name}&apos s favorite color is {c.color}</span>
             </li>)
           }
         </ol>

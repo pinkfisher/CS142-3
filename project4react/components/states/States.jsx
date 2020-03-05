@@ -1,7 +1,6 @@
 import React from "react";
 import "./States.css";
 import PropTypes from "prop-types";
-import Header from "../header/Header";
 
 /**
  * Define States, a React componment of CS142 project #4 problem #2.  The model
