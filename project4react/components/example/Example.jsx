@@ -1,6 +1,5 @@
 import React from "react";
 import "./Example.css";
-
 /*
   Since this component shows code we include the https://prismjs.com/
   formatter. We invoke it by labelling code blocks with class="language-jsx"
@@ -103,20 +102,18 @@ class Example extends React.Component {
     this.setState({ motto: event.target.value });
   }
 
-
   render() {
     return (
       <div className="container Example">
         <h1>CS142 Project#4 React.js Example</h1>
-
         <div className="motto-update">
           <p>My name is {this.state.name}</p>
           <p>My motto is {this.state.motto}</p>
-            <input
-              type="text"
-              value={this.state.motto}
-              onChange={this.handleChangeMotto}
-            />
+          <input
+            type="text"
+            value={this.state.motto}
+            onChange={this.handleChangeMotto}
+          />
         </div>
 
         <p>
