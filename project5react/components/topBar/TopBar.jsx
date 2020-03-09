@@ -1,8 +1,7 @@
-import React from 'react';
-import {
-  AppBar, Toolbar, Typography
-} from '@material-ui/core';
-import './TopBar.css';
+import React from "react";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import "./TopBar.css";
+import { withRouter } from "react-router-dom";
 
 /**
  * Define TopBar, a React componment of CS142 project #5
@@ -16,8 +15,11 @@ class TopBar extends React.Component {
     return (
       <AppBar className="cs142-topbar-appBar" position="absolute">
         <Toolbar>
+          <Typography variant="h5" color="inherit" edge="start">
+            Le Thanh Binh app
+          </Typography>
           <Typography variant="h5" color="inherit">
-              This is the TopBar component
+            Current activity: {window.location.href}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -25,4 +27,4 @@ class TopBar extends React.Component {
   }
 }
 
-export default TopBar;
+export default withRouter(TopBar);

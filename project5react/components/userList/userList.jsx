@@ -1,11 +1,11 @@
 import React from "react";
-import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 import "./userList.css";
 import { Link } from "react-router-dom";
 
 function UserListItem(props) {
   return (
-    <ListItem button component={Link} to={"/user/" + props.user._id}>
+    <ListItem button component={Link} to={"/users/" + props.user._id}>
       <ListItemText>
         {props.user.first_name + " " + props.user.last_name}
       </ListItemText>
@@ -19,13 +19,12 @@ function UserListItem(props) {
 class UserList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userList: window.cs142models.userListModel() };
   }
 
   render() {
-    var userList = this.state.userList.map(x => (
-      <UserListItem user={x} key={x._id} />
-    ));
+    var userList = window.cs142models
+      .userListModel()
+      .map(x => <UserListItem user={x} key={x._id} />);
     return <List>{userList}</List>;
   }
 }
