@@ -11,7 +11,11 @@ class TopBar extends React.Component {
     super(props);
   }
 
+  fetchData() {
+    fetch("http://localhost:3000/test/info").then(x => console.log(x));
+  }
   render() {
+    this.fetchData();
     return (
       <AppBar className="cs142-topbar-appBar" position="absolute">
         <Toolbar>
