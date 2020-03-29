@@ -2,6 +2,7 @@ import React from "react";
 import "./userPhotos.css";
 import { Divider } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import fetchModel from "../../lib/fetchModelData.js";
 
 /**
  * Define UserPhotos, a React componment of CS142 project #5
@@ -9,20 +10,53 @@ import { Link } from "react-router-dom";
 class UserPhotos extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { cur: 0 };
+    this.state = { photoList: [], isLoaded: false };
+  }
+
+  componentDidMount() {
+    this.fetchUserPhotos();
+  }
+
+  fetchUserPhotos() {
+    fetchModel(
+      "http://localhost:3000/photosOfUser/" + this.props.match.params.userId
+    )
+      .then(x => JSON.parse(x.data))
+      .then(x =>
+        this.setState({
+          photoList: x,
+          isLoaded: true
+        })
+      );
+  }
+
+  render() {
+    if (this.state.isLoaded) {
+      return <UserPhotosView photoList={this.state.photoList}></UserPhotosView>;
+    } else {
+      return <div></div>;
+    }
+  }
+}
+
+class UserPhotosView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { cur: 0, creator: false };
     this.handleNext = this.handleNext.bind(this);
     this.handleBack = this.handleBack.bind(this);
   }
+
   handleNext() {
     this.setState({ cur: this.state.cur + 1 });
   }
+
   handleBack() {
     this.setState({ cur: this.state.cur - 1 });
   }
+
   render() {
-    var photoList = window.cs142models.photoOfUserModel(
-      this.props.match.params.userId
-    );
+    var photoList = this.props.photoList;
     if (this.state.cur < photoList.length - 1) {
       var nextButton = <button onClick={this.handleNext}>Next</button>;
     }
@@ -40,29 +74,52 @@ class UserPhotos extends React.Component {
   }
 }
 
-function Photo(props) {
-  var file_path = "/images/" + props.photo.file_name;
-  if (props.photo.comments !== undefined) {
-    var comments = props.photo.comments.map(x => (
-      <Comment comment={x} key={x._id} />
-    ));
+class Photo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { creator: {}, isLoaded: false };
   }
-  var creator = window.cs142models.userModel(props.photo.user_id);
-  return (
-    <div>
-      <img src={file_path} alt="" />
-      <div>
-        Post by
-        <Link to={"/users/" + creator._id}>
-          {creator.first_name + creator.last_name}
-        </Link>
-        at {props.photo.date_time}
-      </div>
-      <Divider />
-      {comments}
-    </div>
-  );
+
+  componentDidMount() {
+    fetchModel("http://localhost:3000/user/" + this.props.photo.user_id)
+      .then(x => JSON.parse(x.data))
+      .then(x =>
+        this.setState({
+          creator: x,
+          isLoaded: true
+        })
+      );
+  }
+
+  render() {
+    if (this.state.isLoaded) {
+      var file_path = "/images/" + this.props.photo.file_name;
+      if (this.props.photo.comments !== undefined) {
+        var comments = this.props.photo.comments.map(x => (
+          <Comment comment={x} key={x._id} />
+        ));
+      }
+
+      var creator = this.state.creator;
+
+      return (
+        <div>
+          <img src={file_path} alt="" />
+          <div>
+            Post by
+            <Link to={"/users/" + creator._id}>
+              {creator.first_name + creator.last_name}
+            </Link>
+            at {this.props.photo.date_time}
+          </div>
+          <Divider />
+          {comments}
+        </div>
+      );
+    } else return <div></div>;
+  }
 }
+
 function Comment(props) {
   return (
     <div>

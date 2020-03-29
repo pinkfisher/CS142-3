@@ -2,6 +2,7 @@ import React from "react";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import "./userList.css";
 import { Link } from "react-router-dom";
+import fetchModel from "../../lib/fetchModelData.js";
 
 function UserListItem(props) {
   return (
@@ -19,12 +20,19 @@ function UserListItem(props) {
 class UserList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { userList: [] };
+  }
+
+  componentDidMount() {
+    fetchModel("http://localhost:3000/user/list")
+      .then(x => JSON.parse(x.data))
+      .then(x => this.setState({ userList: x }));
   }
 
   render() {
-    var userList = window.cs142models
-      .userListModel()
-      .map(x => <UserListItem user={x} key={x._id} />);
+    var userList = this.state.userList.map(x => (
+      <UserListItem user={x} key={x._id} />
+    ));
     return <List>{userList}</List>;
   }
 }

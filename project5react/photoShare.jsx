@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import { Grid, Typography, Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import "./styles/main.css";
 
 // import necessary components
